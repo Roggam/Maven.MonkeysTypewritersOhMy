@@ -1,5 +1,9 @@
 package io.zipcoder;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
 public class MonkeyTypewriter {
     public static void main(String[] args) {
         String introduction = "It was the best of times,\n" +
@@ -24,6 +28,43 @@ public class MonkeyTypewriter {
         // For each Copier(one safe and one unsafe), create and start 5 monkeys copying the introduction to
         // A Tale Of Two Cities.
 
+        UnsafeCopier unsafeCopier = new UnsafeCopier(introduction);
+        Thread unSafeThread1 = new Thread(unsafeCopier);
+        Thread unSafeThread2 = new Thread(unsafeCopier);
+        Thread unSafeThread3 = new Thread(unsafeCopier);
+        Thread unSafeThread4 = new Thread(unsafeCopier);
+        Thread unSafeThread5 = new Thread(unsafeCopier);
+        List<Thread> unSafeThreadList = new ArrayList<>();
+        unSafeThreadList.add(unSafeThread1);
+        unSafeThreadList.add(unSafeThread2);
+        unSafeThreadList.add(unSafeThread3);
+        unSafeThreadList.add(unSafeThread4);
+        unSafeThreadList.add(unSafeThread5);
+        for (Thread t : unSafeThreadList){
+            t.start();
+        }
+
+
+
+       SafeCopier safeCopier = new SafeCopier(introduction);
+        Thread safeThread1 = new Thread(safeCopier);
+        Thread safeThread2 = new Thread(safeCopier);
+        Thread safeThread3 = new Thread(safeCopier);
+        Thread safeThread4 = new Thread(safeCopier);
+        Thread safeThread5 = new Thread(safeCopier);
+
+        List<Thread> safeThreadList = new ArrayList<>();
+        safeThreadList.add(safeThread1);
+        safeThreadList.add(safeThread2);
+        safeThreadList.add(safeThread3);
+        safeThreadList.add(safeThread4);
+        safeThreadList.add(safeThread5);
+        for (Thread t : safeThreadList){
+            t.start();
+
+        }
+
+
 
         // This wait is here because main is still a thread and we want the main method to print the finished copies
         // after enough time has passed.
@@ -34,5 +75,9 @@ public class MonkeyTypewriter {
         }
 
         // Print out the copied versions here.
+        System.out.println("UNSAFE COPIER");
+        unsafeCopier.print();
+        System.out.println("\nSAFE COPIER");
+        safeCopier.print();
     }
 }
